@@ -38,8 +38,7 @@ onMounted(async () => {
         <div class="form-outline mb-4">
             <label class="form-label card-tex" for="playerName">Votre vaisseau:</label>
             <select class="form-select" aria-label="Default select example">
-                <option selected>Open this select menu</option>
-                <option id="shipsList"  v-for="ship in listOfShips" :key=ship.id :value=ship >{{ ship.name }}</option>
+                <option id="shipsList"  v-for="ship in listOfShips" :key=ship.id :value=ship v-bind:selected="ship.id === 0">{{ ship.name }}</option>
             </select>
         </div>
         <a href="#" class="btn btn-primary">Débuter la partie</a>
