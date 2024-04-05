@@ -1,5 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
-import PostsView from '../views/PostsView.vue'
+import PostsView from '../views/WelcomeView.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -16,15 +16,7 @@ const routes: Array<RouteRecordRaw> = [
       name: 'About',
       component: () => import('../views/AboutView.vue')
     },
-    {
-      // Route qui affiche le détail d'un post identifié par son id.
-      // Dans la propriété path, on peut utiliser un paramètre dynamique pour capturer une partie d'une chaîne de caractères de l'url et éventuellement utiliser sa valeur dans l'application. Par exemple, dans 'path: '/user/:id', le paramètre dynamique id sera égal à la partie de l'url qui suit /user/. Donc, si l'url est /user/123, alors le paramètre id sera égal à 123.
-      // La propriété props définie à vrai autorise le passage de paramètres au composant associé à la route. On autorise donc ici le passage du paramètre id au composant PostDetailView.
-      path: '/posts/:id',
-      name: 'PostDetail',
-      component: () => import('../views/PostDetailView.vue'),
-      props: true
-    },
+  
     {
       // Route 404
       // Dans l'exemple ci-dessous, le paramètre dynamique pathMatch est égal à la partie de l'url qui suit le caractère /. Par exemple, si l'url est /foo, alors le paramètre pathMatch sera égal à foo. L'expression régulière (.*)* qui suit le paramètre dynamique correspond à n'importe quel caractère. Donc, '/:pathMatch(.*)*' correspond à n'importe quel chemin de l'URL. C'est la façon dont on définit une route 404 dans Vue.js.
