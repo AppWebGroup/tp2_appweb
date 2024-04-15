@@ -3,11 +3,12 @@ import Loading from 'vue-loading-overlay'
 import { useToast } from 'vue-toast-notification'
 import { onMounted, ref } from 'vue'
 import { gameService } from '../services/gameService'
-import type Ship from '../scripts/game'
+import type Ship from '../scripts/ship'
+import type Player from '../scripts/player' 
+
 
 const listOfShips = ref<Ship[]>();
-
-
+const player = ref<Player>();
 const isLoading = ref(false)
 
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
@@ -24,28 +25,36 @@ onMounted(async () => {
     isLoading.value = false
   )
 })
+
+function handleFormSubmission() {
+  const playerNameInput : HTMLInputElement | null = document.querySelector('input[type="text"][id="playerName]') as HTMLInputElement
+  if(player.value?.name || player.value?.ship) {
+    player.value!.name = playerNameInput.value
+  }
+}
+
 </script>
 
 <template>
-<div class="row d-flex justify-content-center align-items-center">
-  <div class="col-sm-6 ">
-    <div class="card">
-      <div class="card-body p-4 p-lg-5">
-        <div class="form-outline mb-4">
+  <div class="row d-flex justify-content-center align-items-center">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body p-4 p-lg-5">
+          <div class="form-outline mb-4">
             <label class="form-label" for="playerName">Votre nom:</label>
             <input type="text" id="playerName" class="form-control form-control-lg" />
-        </div>
-        <div class="form-outline mb-4">
-            <label class="form-label card-tex" for="playerName">Votre vaisseau:</label>
-            <select class="form-select" aria-label="Default select example">
-                <option id="shipsList"  v-for="ship in listOfShips" :key=ship.id :value=ship v-bind:selected="ship.id === 0">{{ ship.name }}</option>
+          </div>
+          <div class="form-outline mb-4">
+            <label class="form-label card-tex" for="shipSelection">Votre vaisseau:</label>
+            <select class="form-select" id="shipSelection" aria-label="Ship selection" >
+              <option v-for="ship in listOfShips"  :value="ship" :selected="ship.id === 0">{{ ship.name }}</option>
             </select>
+          </div>
+          <button class="btn btn-primary" @click="handleFormSubmission">Débuter la partie</button>
         </div>
-        <a href="#" class="btn btn-primary">Débuter la partie</a>
       </div>
     </div>
   </div>
-</div>
-<Loading :active="isLoading"/>
+  <Loading :active="isLoading"/>
 </template>
 <style></style>
