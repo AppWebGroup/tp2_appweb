@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue'
 import { gameService } from '../services/gameService'
 import type Ship from '../scripts/ship'
 import type Player from '../scripts/player' 
+import router from '@/router'
 
 
 const listOfShips = ref<Ship[]>();
@@ -27,9 +28,10 @@ onMounted(async () => {
 })
 
 function handleFormSubmission() {
-  const playerNameInput : HTMLInputElement | null = document.querySelector('input[type="text"][id="playerName]') as HTMLInputElement
-  if(player.value?.name || player.value?.ship) {
-    player.value!.name = playerNameInput.value
+  const playerNameInput : HTMLInputElement | null = document.getElementById('playerName') as HTMLInputElement
+  const playerShip : HTMLOptionElement | null = document.querySelector('option:checked') as HTMLOptionElement
+  if(playerNameInput.value &&  playerShip.value) {
+     router.push({name: 'Mission', params: { playerName: playerNameInput.value, shipName: playerShip.value}})
   }
 }
 
@@ -47,7 +49,7 @@ function handleFormSubmission() {
           <div class="form-outline mb-4">
             <label class="form-label card-tex" for="shipSelection">Votre vaisseau:</label>
             <select class="form-select" id="shipSelection" aria-label="Ship selection" >
-              <option v-for="ship in listOfShips"  :value="ship" :selected="ship.id === 0">{{ ship.name }}</option>
+              <option v-for="ship in listOfShips" :value="ship.name" :selected="ship.id === 0">{{ ship.name }}</option>
             </select>
           </div>
           <button class="btn btn-primary" @click="handleFormSubmission">Débuter la partie</button>
