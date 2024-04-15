@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
 import '../css/style.css';
 const fightOption = "Combattre"
 const missionOption ="Terminer la mission"
 const restoreShipOption= "réparer le vaisseau"
 
 //À changer le css + logique n'est pas encore fait
+
+
 </script>
 <template>
     <div class="container">
