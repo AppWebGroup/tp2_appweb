@@ -41,7 +41,7 @@ onMounted(async () => {
                 <option id="shipsList"  v-for="ship in listOfShips" :key=ship.id :value=ship v-bind:selected="ship.id === 0">{{ ship.name }}</option>
             </select>
         </div>
-        <a href="#" class="btn btn-primary">Débuter la partie</a>
+        <button class="btn btn-primary">Débuter la partie</button>
       </div>
     </div>
   </div>

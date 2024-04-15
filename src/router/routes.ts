@@ -14,6 +14,13 @@ const routes: Array<RouteRecordRaw> = [
       name: 'HomePage',
       component: () => import('../views/HomePageView.vue')
     },
+  
+      {
+        path: '/Mission/:playerName/:shipName',
+        name: 'Mission',
+        component: () => import('../views/GameView.vue'),
+        props:true
+      },
     {
       path: '/score',
       name: 'Score',
