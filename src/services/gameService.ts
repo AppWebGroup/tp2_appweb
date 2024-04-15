@@ -2,7 +2,6 @@
 import type Ship from '../scripts/ship'
 
 
-
 async function fetchShips(): Promise<Ship[]> {
   try {
       let response = await fetch("/api/ships");

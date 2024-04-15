@@ -31,7 +31,7 @@ function cancelConfirmed() {
 
 </script>
 <template>
-    <Action></Action>
+    <Action ></Action>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"
