@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
     {
       path: '/score',
       name: 'Score',
-      component: () => import('../views/ScoreView.vue')
+      component: () => import('../views/GameView.vue')
     },
 
     //À voir si je garde ou nn
