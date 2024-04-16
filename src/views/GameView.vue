@@ -57,10 +57,18 @@ shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-    <Player  :playerName="playerName" :shipName="shipName"/>
-    <Mission :levelMission="levelMission"/>
-    <Action ></Action>
-    <Enemy></Enemy>
+    <div class="container">
+      <div class="row">
+        <Action ></Action>
+        <Mission :levelMission="levelMission"/>
+      </div>
+      <div class="row">
+        <Player  :playerName="playerName" :shipName="shipName"/>
+        <Enemy></Enemy>
+      </div>
+     
+    </div>
+
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"

@@ -13,10 +13,9 @@ const enemy = ref<Character>();
 const remainingLife = ref(100)
 
 onMounted(async () => {
-  isLoading.value = true
+    isLoading.value = true
 
-  // Recherche de l'enemy à combattre
-    
+    // Recherche de l'enemy à combattre
     await scoresService.getRandomEnemy().then(result => {enemy.value = result})
     .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,
                                   { duration: 6000 }
@@ -27,14 +26,15 @@ onMounted(async () => {
     })
 </script>
 <template>
-    <div class="container mt-4">
-        <div class="card bg-dark col-md-6" v-if="enemy">
+    <div class=" col-12 col-md-6">
+        <div class="card bg-dark mt-4" v-if="enemy">
             <div class="bg-primary card-header">
                 <p class="col-12 text-white">{{ enemy.name }}</p>
             </div>
             <div class="card-body">
                 <div class="row mt-2">
                     <div class="col-12 text-white">{{ experience[enemy.experience ?? 1] + " - " + enemy.credit + " CG"}}</div>
+                    <div class="col-12 text-white text-center m-2">{{ enemy.ship.name }}</div>
                     <div class="col-12 btn btn-primary">{{ remainingLife + " " + "%" }}</div>
                 </div>
             </div>

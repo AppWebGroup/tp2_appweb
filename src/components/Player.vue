@@ -16,8 +16,8 @@ const remainingLife = ref(100)
 
 </script>
 <template>
-    <div class="container">
-        <div class="card bg-dark col-md-6">
+    <div class="col-12 col-md-6">
+        <div class=" card bg-dark  mt-4">
             <div class="bg-primary card-header">
                 <p class="col-12 text-white">{{ props.playerName }}</p>
             </div>

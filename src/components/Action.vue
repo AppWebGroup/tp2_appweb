@@ -16,8 +16,8 @@ const emit = defineEmits<{
 
 </script>
 <template>
-<div class="container mt-4">
-    <div class="card bg-dark col-md-6">
+    <div class=" col-12 col-md-6 ">
+        <div class=" card bg-dark mt-4">
         <div class="bg-primary card-header">
             <p class=" text-white">Actions</p>
         </div>
@@ -28,6 +28,7 @@ const emit = defineEmits<{
                 <div type="button" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('repairSpaceShip')">{{ missionOption +" et "+ restoreShipOption }}</div>
             </div>
         </div>
+        </div>
     </div>
-</div>
+    
 </template>
