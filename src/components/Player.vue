@@ -8,9 +8,9 @@ const props = defineProps<{
     shipName: string
 }>()
 
-const galacticCredits: number = ref(0)
-const experience: string = ref("Maître")
-const remainingLife: number = ref(100)
+const galacticCredits = ref(0)
+const experience = ref("Maître")
+const remainingLife = ref(100)
 
 
 

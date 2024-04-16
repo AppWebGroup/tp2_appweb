@@ -9,7 +9,6 @@ const props = defineProps<{
 
 const descriptionGame: string = "Objectif: survivre à 5 missions en obtenant le plus de crédits"
 
-
 </script>
 <template>
     <div class="container mt-4">
