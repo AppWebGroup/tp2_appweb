@@ -66,9 +66,7 @@ shipName.value = router.currentRoute.value.params.shipName
         <Player  :playerName="playerName" :shipName="shipName"/>
         <Enemy></Enemy>
       </div>
-     
     </div>
-
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"
