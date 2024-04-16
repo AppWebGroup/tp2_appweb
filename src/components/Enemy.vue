@@ -24,6 +24,7 @@ onMounted(async () => {
         isLoading.value = false
     )
     })
+
 </script>
 <template>
     <div class=" col-12 col-md-6">
