@@ -1,29 +1,21 @@
 <script setup lang="ts">
 import Loading from 'vue-loading-overlay'
 import {ref, onMounted } from "vue"
-import { useToast } from 'vue-toast-notification'
+
 import {scoresService} from '../services/scoresService'
 import type Character from '../scripts/character'
 import {experience} from '../scripts/experience'
 import '../css/style.css';
 
 
+defineProps<{
+    enemy : Character | undefined
+}>();
+
 const isLoading = ref(false)
-const enemy = ref<Character>();
 const remainingLife = ref(100)
 
-onMounted(async () => {
-    isLoading.value = true
 
-    // Recherche de l'enemy à combattre
-    await scoresService.getRandomEnemy().then(result => {enemy.value = result})
-    .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,
-                                  { duration: 6000 }
-    )) 
-    .finally( () =>
-        isLoading.value = false
-    )
-    })
 </script>
 <template>
     <div class=" col-12 col-md-6">
@@ -35,7 +27,7 @@ onMounted(async () => {
                 <div class="row mt-2">
                     <div class="col-12 text-white">{{ experience[enemy.experience ?? 1] + " - " + enemy.credit + " CG"}}</div>
                     <div class="col-12 text-white text-center m-2">{{ enemy.ship.name }}</div>
-                    <div class="col-12 progress bg-primary">
+                    <div class="col-12 progress bg-primary" style="height: 30px;">
                         <div class="progress-bar" role="progressbar" :style="{ width: remainingLife + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ remainingLife+ " " + "%" }}</div>
                     </div>
                 </div>
