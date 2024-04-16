@@ -24,7 +24,7 @@ const remainingLife: number = ref(100)
             <div div class="card-body">
                 <div class="row  mt-2">
                     <div class="col-12 text-white">{{ experience + " - " + galacticCredits + " CG"}}</div>
-                    <div class="col-12 text-white text-center mt-2">{{ props.shipName}}</div>
+                    <div class="col-12 text-white text-center m-2">{{ props.shipName}}</div>
                     <div class="col-12 btn btn-primary ">{{ remainingLife+ " " + "%" }}</div>
                 </div>
             </div>

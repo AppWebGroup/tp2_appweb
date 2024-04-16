@@ -19,16 +19,19 @@ async function getShips () {
     return data
   }
 
-  async function getPlayer()
+  async function getRandomEnemy()
   {
     const { data } = await axios.get(`${API_URL}/characters`)
     listCharacter.value = data
-    const size:any = listCharacter.value?.length 
-    const player = ref<Character>();
+    const size: number = listCharacter.value!.length 
+    const index = Math.floor(Math.random() * size);
 
-    player.value = listCharacter.value![size - 1]
-    return player
+    const enemy = ref<Character>();
+
+    enemy.value = listCharacter.value![index]
+    return enemy.value
   }
+
 
   async function createRanking(ranking : Ranking)
   {
@@ -41,7 +44,7 @@ async function getShips () {
     getShips,
     getRanking,
     createRanking, 
-    getPlayer
+    getRandomEnemy 
   }
 
 
