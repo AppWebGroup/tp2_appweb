@@ -5,21 +5,16 @@ import { gameService } from '@/services/gameService';
 import ConfirmModal from '../components/ConfirmModal.vue';
 import { ref } from 'vue';
 import 'vue-loading-overlay/dist/css/index.css'
-import Player from '../components/Player.vue'
-import Mission from '../components/Mission.vue'
-import Enemy from '../components/Enemy.vue'
+import GameLogic from '@/components/GameLogic.vue';
 
-
-
+const playerName = ref("");
+const shipName = ref("");
 const triggerModal = ref(0)
 const nextView = ref<RouteRecordName | null>()
 const gameStarted = ref(true)
 const router = useRouter()
 
-const playerName = ref("");
-const shipName = ref("");
 
-const levelMission = ref(1)
 
 onBeforeRouteLeave((to, from, next) => {
   if(gameStarted.value) {
@@ -86,16 +81,7 @@ shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-    <div class="container">
-      <div class="row">
-        <Action ></Action>
-        <Mission :levelMission="levelMission"/>
-      </div>
-      <div class="row">
-        <Player  :playerName="playerName" :shipName="shipName"/>
-        <Enemy></Enemy>
-      </div>
-    </div>
+    <GameLogic :playerName="playerName" :shipName="shipName" :isGameStarted="gameStarted"></GameLogic>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"
