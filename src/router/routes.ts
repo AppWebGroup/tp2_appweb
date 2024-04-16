@@ -19,7 +19,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '/Mission/:playerName/:shipName',
         name: 'Mission',
         component: () => import('../views/GameView.vue'),
-        props:true
+        props: true
       },
     {
       path: '/score',

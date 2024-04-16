@@ -6,8 +6,6 @@ const fightOption = "Combattre"
 const missionOption ="Terminer la mission"
 const restoreShipOption= "réparer le vaisseau"
 
-//À changer le css + logique n'est pas encore fait
-
 const emit = defineEmits<{
     (event: 'startFight') : void,
     (event: 'stopMission') : void,

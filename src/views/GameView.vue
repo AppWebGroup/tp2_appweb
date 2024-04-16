@@ -7,16 +7,16 @@ import { ref } from 'vue';
 import 'vue-loading-overlay/dist/css/index.css'
 //import Action from '../components/Action.vue'
 import Player from '../components/Player.vue'
+import { useLink } from 'vue-router';
 
-defineProps<{
-    playerName: string,
-    shipName: string
-}>()
+
 
 const triggerModal = ref(0)
 const nextView = ref<RouteRecordName | null>()
 const gameStarted = ref(true)
 const router = useRouter()
+const playerName = ref("");
+const shipName = ref("");
 
 onBeforeRouteLeave((to, from, next) => {
   if(gameStarted.value) {
@@ -33,10 +33,12 @@ function cancelConfirmed() {
   router.push({ name: nextView.value!})
 }
 
+playerName.value  = router.currentRoute.value.params.playerName
+shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-    <Player :playerName="playerName" :shipName="shipName"/>
+    <Player  :playerName="playerName" :shipName="shipName"/>
     <Action ></Action>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"

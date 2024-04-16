@@ -1,28 +1,33 @@
 <script setup lang="ts">
-import type Character from '../scripts/character'
-import { scoresService } from '../services/scoresService'
+import {ref } from "vue"
+import '../css/style.css';
 
 
-defineProps<{
+const props = defineProps<{
     playerName: string,
     shipName: string
 }>()
 
-//À utiliser
-/*const playerExperience = "Maître"
-const playerCredits = 0*/
+const galacticCredits: number = ref(0)
+const experience: string = ref("Maître")
+const remainingLife: number = ref(100)
+
 
 
 </script>
 <template>
-    <div class="container bg-dark">
-        <div class="row bg-primary">
-            <p class="col-12 text-white">{{ props.playerName }}</p>
-        </div>
-        <div class="row mt-2">
-            <div class="col-12 text-white">{{ }}</div>
-            <div class="col-12 text-white text-center mt-2">{{ props.shipName }}</div>
-            <div class="col-12 btn btn-primary m-2">{{  }}</div>
+    <div class="container">
+        <div class="card bg-dark col-md-6">
+            <div class="bg-primary card-header">
+                <p class="col-12 text-white">{{ props.playerName }}</p>
+            </div>
+            <div div class="card-body">
+                <div class="row  mt-2">
+                    <div class="col-12 text-white">{{ experience + " - " + galacticCredits + " CG"}}</div>
+                    <div class="col-12 text-white text-center mt-2">{{ props.shipName}}</div>
+                    <div class="col-12 btn btn-primary ">{{ remainingLife+ " " + "%" }}</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
