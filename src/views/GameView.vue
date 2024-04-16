@@ -5,11 +5,9 @@ import { gameService } from '@/services/gameService';
 import ConfirmModal from '../components/ConfirmModal.vue';
 import { ref } from 'vue';
 import 'vue-loading-overlay/dist/css/index.css'
-//import Action from '../components/Action.vue'
 import Player from '../components/Player.vue'
 import Mission from '../components/Mission.vue'
 import Enemy from '../components/Enemy.vue'
-import { useLink } from 'vue-router';
 
 
 
@@ -88,12 +86,16 @@ shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-  <div class="container">
-      <Action ></Action>
-      <Mission :levelMission="levelMission"/>
-  </div>
-    <Player  :playerName="playerName" :shipName="shipName"/>
-  
+    <div class="container">
+      <div class="row">
+        <Action ></Action>
+        <Mission :levelMission="levelMission"/>
+      </div>
+      <div class="row">
+        <Player  :playerName="playerName" :shipName="shipName"/>
+        <Enemy></Enemy>
+      </div>
+    </div>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"
