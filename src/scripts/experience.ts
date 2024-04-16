@@ -12,7 +12,7 @@ export const experience: Experience=
     1:"Débutant",
     2:"Confirmé",
     3: "Expert",
-    4:"Maître"
+    4:"Maître",
 }
 
 export const valueExperience : ValueExperience =

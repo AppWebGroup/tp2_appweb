@@ -14,20 +14,7 @@ async function fetchShips(): Promise<Ship[]> {
   }   
 }
 
-//TODO: get Ranking with an id
-async function getRankingById (id : string) {
-  try {
-    let response = await fetch(`/api/ranking/${id}`);
-    if (!response.ok) {
-      throw new Error(`Impossible de lister les vaisseaux: ${response.statusText}`); 
-    }
-    return await response.json();
-  } catch (error : any) {
-    return Promise.reject(error.message);
-  } 
-}
 
 export const gameService = {
   fetchShips,
-  getRankingById,
 }

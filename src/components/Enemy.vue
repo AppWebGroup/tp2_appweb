@@ -35,8 +35,8 @@ onMounted(async () => {
                 <div class="row mt-2">
                     <div class="col-12 text-white">{{ experience[enemy.experience ?? 1] + " - " + enemy.credit + " CG"}}</div>
                     <div class="col-12 text-white text-center m-2">{{ enemy.ship.name }}</div>
-                    <div class="col-12 progress bg-primary" style="height: 20px;">
-                        <div class="progress-bar" role="progressbar" :style="{width: remainingLife + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ remainingLife+ " " + "%" }}</div>
+                    <div class="col-12 progress bg-primary">
+                        <div class="progress-bar" role="progressbar" :style="{ width: remainingLife + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ remainingLife+ " " + "%" }}</div>
                     </div>
                 </div>
             </div>
