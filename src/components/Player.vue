@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref } from "vue"
+import {ref} from "vue"
 import '../css/style.css';
 
 
@@ -16,7 +16,7 @@ const remainingLife: number = ref(100)
 
 </script>
 <template>
-    <div class="container">
+    <div class="container mt-3">
         <div class="card bg-dark col-md-6">
             <div class="bg-primary card-header">
                 <p class="col-12 text-white">{{ props.playerName }}</p>

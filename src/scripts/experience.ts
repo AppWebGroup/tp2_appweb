@@ -1,4 +1,6 @@
 
+
+/*
 export const experience = 
 {
     1:"Débutant",
@@ -13,4 +15,4 @@ export const valueExperience =
     2: 35,
     3: 50,
     4: 70
-}
+}*/
