@@ -52,17 +52,14 @@ function isShipTouch(chancesInPercentage: number)
   {
     return true
   }
-
   return false
-
 }
 
 //je ne pense pas que ce soit la bonne vue pour ca 
 function generateRandomNumber(): number 
 {
   const maxNumber:number = 10
-
-  return Math.floor(Math.random() * maxNumber) + 1;
+  Math.floor(Math.random() * maxNumber) + 1;
 }
 
 

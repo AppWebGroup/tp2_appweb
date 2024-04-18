@@ -6,7 +6,7 @@ import type Character from '../scripts/character'
 
 const API_URL = 'http://127.0.0.1:3000'
 
-const listCharacter= ref<Character[]| undefined>();
+const listCharacter= ref<Character[]| undefined>([]);
 
 async function getShips () {
     const { data } = await axios.get(`${API_URL}/ships`)
@@ -32,7 +32,14 @@ async function getShips () {
     return enemy.value
   }
 
+  function getRandomEnemyNotKilled(characterToDelete: Character)
+  {
+    console.log(listCharacter.value?.length)
+    console.log(characterToDelete.name)
+     const filteredList = listCharacter.value!.filter(character => characterToDelete.name == character.name)
+    console.log(listCharacter.value!.length)
 
+  }
   async function createRanking(ranking : Ranking)
   {
     const { data } = await axios.post(`${API_URL}/ranking`, ranking)
@@ -44,7 +51,8 @@ async function getShips () {
     getShips,
     getRanking,
     createRanking, 
-    getRandomEnemy 
+    getRandomEnemy,
+    getRandomEnemyNotKilled
   }
 
 
