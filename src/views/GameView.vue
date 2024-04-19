@@ -31,7 +31,10 @@ function cancelConfirmed() {
   router.push({ name: nextView.value!})
 }
 
+<<<<<<< HEAD
 //Récupération du nom de joueur et de son vaisseau
+=======
+>>>>>>> 0f62533253df1f465e34138d5747e6207abc7ecf
 playerName.value  = router.currentRoute.value.params.playerName
 shipName.value = router.currentRoute.value.params.shipName
 

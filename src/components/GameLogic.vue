@@ -1,19 +1,24 @@
 <script setup lang="ts">
-import Player from '../components/Player.vue'
+import PlayerVue from '../components/Player.vue'
 import Mission from '../components/Mission.vue'
-import Enemy from '../components/Enemy.vue'
+import EnemyVue from '../components/Enemy.vue'
 import Action from '../components/Action.vue'
 import {ref,  onBeforeMount} from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { scoresService } from '@/services/scoresService'
-import type Character from '@/scripts/character'
 import {utility } from '@/scripts/utility'
 import {valueExperience} from '@/scripts/experience'
-import router  from '@/router/routes'
-import Ranking from '@/scripts/ranking'
+import type Ranking from '@/scripts/ranking'
+import type Enemy from '@/scripts/enemy'
+import type Player from '@/scripts/player'
+import { useRouter } from 'vue-router'
 
+const DEFAULT_NUMBER_OF_ENEMY = 5;
+const router = useRouter()
 
-//Initialisation
+// initialize an enemy list 
+const enemyList = ref<Enemy[]>([])
+
 const props = defineProps<{
     isGameStarted : boolean,
     playerName: string,
@@ -21,63 +26,62 @@ const props = defineProps<{
 }>()
 
 const isLoading = ref(true)
-const currentEnemy = ref<Character>()
-const currentPlayer = ref<Character | undefined>({ 
+const currentEnemy = ref<Enemy>()
+
+//Initialisation
+const currentPlayer = ref<Player | undefined>({ 
     name: props.playerName,
     experience: 4,
-    credits: 0,
-    ship: { name:props.shipName },
-    remainingLife: 100,
+    credit: 0,
+    ship: props.shipName,
+    remainingLives: 100,
     isKilled :false
 })
 
 const levelMission = ref(1)
 
-
-
+//initialize the enemy list before the game start
 onBeforeMount(async () => {
     isLoading.value = true
-
-    //Recherche de l'enemy à combattre
-    await scoresService.getRandomEnemy().then(result => {
-        currentEnemy.value = result ,
-        currentEnemy.value.credits = result.credit,
-        currentEnemy.value.remainingLife = 100,
-        currentEnemy.value.isKilled = false
-    })
-    .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,
-                                  { duration: 6000 }
-    )) 
-    .finally( () =>
-        isLoading.value = false
-    )
-    })
-
+    
+    //Get the enemies to battle
+    await scoresService.getACertainNumberOfEnemy(DEFAULT_NUMBER_OF_ENEMY).then( characters => {
+        
+        for(const character of characters!) {
+             enemyList.value?.push({...character, isKilled:false, remainingLives:100} as Enemy)
+        }
+        console.error(enemyList.value)
+        }
+        
+    ).then(() => currentEnemy.value = chooseNewEnemy())
+    .finally( () =>  
+         isLoading.value = false)
+    }
+)
 
 function startFight(): void
 {
     //Vérifier si la partie n'est pas terminée(fonction isGameFinish)
     //On a besoin d'avoir deux objet un ennemi et un joueur pour accéder à leur propriétés)
 
-    
     //On vérifie si le vaisseau a été touché
-    if(currentPlayer.value.isKilled == false && currentEnemy.value.isKilled == false)
+    if(currentPlayer.value!.isKilled == false && currentEnemy.value!.isKilled == false)
     {
-        onFight(currentPlayer.value, currentEnemy.value)
-        onFight(currentEnemy.value, currentPlayer.value)
+        onFight(currentPlayer.value!, currentEnemy.value!)
+        onFight(currentEnemy.value!, currentPlayer.value!)
     }
-    else if(currentPlayer.value.isKilled)
+    else if(currentPlayer.value!.isKilled)
     {
        onKillPlayer()  
     }
-    else if(currentEnemy.value.isKilled)
+    else if(currentEnemy.value!.isKilled)
     {   
         onKillEnemy()
     }
     
 }
 
-function onFight(attacker:Character, victim: Character)
+function onFight(attacker: Player | Enemy, victim: Player | Enemy)
 {
     //On vient chercher le pourcentage associé à l'expérience
     if (isShipTouch(valueExperience[attacker.experience]))
@@ -90,18 +94,12 @@ function finishMission(): void
 {
     if(levelMission.value == 5)
     {
-        onWinPlayer()
-        //ne marche pas 
-        //À modifier
-        router.replace({name: 'Score'})
+        router.push({name: 'Score'})
     }
-    else if(currentEnemy.value.isKilled)
+    else if(currentEnemy.value!.isKilled)
     {
         levelMission.value += 1 
-
-        //Affichage du nouvel ennemi
-        //À faire
-        //chooseNewEnemy()
+        currentEnemy.value = chooseNewEnemy()
     }
 }
 
@@ -123,20 +121,20 @@ function repairSpaceShip(): void
     }
 }
 
-function onTouchShip(character:Character): void 
+function onTouchShip(character: Player | Enemy): void 
 {
-    character.remainingLife -= utility.getLostLifePercentage()
-    if(character.remainingLife <=0)
+    character.remainingLives! -= utility.getLostLifePercentage()
+    if(character.remainingLives! <=0)
     {
-        character.remainingLife = 0
+        character.remainingLives = 0
         character.isKilled = true
     }
 }
 
 function onKillEnemy(): void
 {
-    currentPlayer.value.credits += currentEnemy.value.credits
-    useToast().info(`Vous avez gagnez ${currentEnemy.value.credits} GC. Fécilcitations !`)
+    currentPlayer.value!.credit += currentEnemy.value!.credit
+    useToast().info(`Vous avez gagnez ${currentEnemy.value!.credit} GC. Fécilcitations !`)
     finishMission()
 }
 
@@ -144,30 +142,24 @@ function onKillPlayer(): void
 {
    //message à l'utilisateur
     useToast().info(`Vous avez perdus. Vous n'avez pas complétez l'objectif des 5 missions.`)
-   
-   //Ne marche pas
-   //Redirection vers la page d'acceuil
-   router.replace({name: 'HomePage'})
+    router.push({name: 'HomePage'})
 }
 
 function onWinPlayer()
 {
     const newRanking = ref<Ranking>()
-
-    //On insère les valeurs du joueur gagnant dans le pointage 
-    newRanking.value.id = utility.generateRandomNumber(1, 1000)
-    newRanking.value.name = currentPlayer.value.name
-    newRanking.value.score = currentPlayer.value.credits
-    scoresService.createRanking(newRanking)
+    newRanking.value!.name = currentPlayer.value!.name
+    newRanking.value!.score = currentPlayer.value!.credit.toString()
+    scoresService.createRanking(newRanking.value!)
 }
 
 function chooseNewEnemy()
 {
-    //À faire
-    //choisir le nouvel enemy à combattre
-    currentEnemy.value = scoresService.getRandomEnemyNotKilled(currentEnemy.value)
-    //test pour afficher l'ennemi 
-    //utility.ok(currentEnemy)
+    for(const enemy of enemyList.value!) {
+        if(!enemy.isKilled) {
+            return enemy;
+        }
+    }
 }
 
 
@@ -193,8 +185,8 @@ function isShipTouch(chancesInPercentage: number)
         <Mission :levelMission="levelMission"/>
       </div>
       <div class="row">
-        <Player :player="currentPlayer"/>
-        <Enemy :enemy="currentEnemy"></Enemy>
+        <PlayerVue :player="currentPlayer"/>
+        <EnemyVue :enemy="currentEnemy"></EnemyVue>
       </div>
     </div>
 </template>

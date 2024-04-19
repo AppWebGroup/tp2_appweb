@@ -4,7 +4,6 @@ import type Ranking from '../scripts/ranking'
 import type Character from '../scripts/character'
 
 const API_URL = 'http://127.0.0.1:3000'
-
 const listCharacter= ref<Character[]| undefined>([]);
 
 async function getShips () {
@@ -43,6 +42,15 @@ async function getShips () {
     return randomEnemy
 
   }
+
+  async function getACertainNumberOfEnemy(numberOfEnemyToGet:  number) : Promise<Character[] | undefined>
+  {
+     const listOfRandomPickedCharacter= ref<Character[]| undefined>([]);
+     for(let i =0; i < numberOfEnemyToGet; i++) {
+         await getRandomEnemy().then( character => listOfRandomPickedCharacter.value!.push(character))
+     }
+     return listOfRandomPickedCharacter.value
+  }
   async function createRanking(ranking : Ranking)
   {
     const { data } = await axios.post(`${API_URL}/ranking`, ranking)
@@ -55,7 +63,22 @@ async function getShips () {
     getRanking,
     createRanking, 
     getRandomEnemy,
-    getRandomEnemyNotKilled
+    getACertainNumberOfEnemy
+  }
+
+  export async function transformCharacterToEnemy(character: Character): Promise<Enemy> {
+    const enemy: Enemy = {
+      ...character,
+      isKilled: false,
+      remainingLives: 3 // Assuming default remaining lives
+    };
+    return enemy;
+  }
+
+  function clearArray<T>(array: T[]) {
+    while (array.length > 0) {
+      array.pop();
+    }
   }
 
 
