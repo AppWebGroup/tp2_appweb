@@ -1,3 +1,4 @@
+import type Character from "./character";
 
 
 
@@ -23,7 +24,7 @@ function getLostLifePercentage(): number
 
 //À enlever si la destruction de l'ennemi marche
 
-function ok(wtv: number)
+function ok(wtv: Ranking)
 {
     console.log(wtv)
 }

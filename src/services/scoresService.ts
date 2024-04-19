@@ -53,6 +53,13 @@ async function getShips () {
   }
   async function createRanking(ranking : Ranking)
   {
+    const listRanking = ref<Ranking[]>([])
+    const newId = ref(0)
+
+     listRanking.value = await getRanking()
+     newId.value = listRanking.value.length + 1 
+     ranking.id = newId.value
+
     const { data } = await axios.post(`${API_URL}/ranking`, ranking)
     return data
   }
