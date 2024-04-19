@@ -15,7 +15,7 @@ const isLoading = ref(false)
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
 onMounted(async () => {
   isLoading.value = true
-  // Cherche la liste de tous les vaisseaux spatiaux.
+  // Récupération de la liste de tous les vaisseaux spatiaux.
   await gameService.fetchShips().then(input => {listOfShips.value = input })
   .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,{ duration: 6000 })) 
   .finally( () => isLoading.value = false)
@@ -31,6 +31,7 @@ function handleFormSubmission() {
       useToast().warning(`Veuillez remplir les champs du formulaire`)
   }
 }
+
 </script>
 <template>
   <div class="row d-flex justify-content-center align-items-center">

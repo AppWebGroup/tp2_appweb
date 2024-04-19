@@ -3,7 +3,7 @@ import {experience} from '../scripts/experience'
 import '../css/style.css';
 import type Enemy from '@/scripts/enemy'
 
-
+//Initialisation
 const props = defineProps<{
     enemy : Enemy | undefined
 }>();

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import {ref } from 'vue'
 import type Ranking from '../scripts/ranking' 
-import type Ship from '../scripts/ship' 
 import type Character from '../scripts/character'
 
 const API_URL = 'http://127.0.0.1:3000'

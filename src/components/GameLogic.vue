@@ -45,7 +45,6 @@ const currentPlayer = ref<Player | undefined>({
     isKilled :false
 })
 
-
 const levelMission = ref(1)
 
 //initialize the enemy list before the game start
@@ -80,20 +79,18 @@ function startFight(): void
     }
     else if(currentPlayer.value!.isKilled)
     {
-       onKillPlayer()
-       
+       onKillPlayer()  
     }
     else if(currentEnemy.value!.isKilled)
     {   
         onKillEnemy()
-        //Pour tester le onKillPlayer
-        //onKillPlayer()
     }
     
 }
 
 function onFight(attacker: Player | Enemy, victim: Player | Enemy)
 {
+    //On vient chercher le pourcentage associé à l'expérience
     if (isShipTouch(valueExperience[attacker.experience]))
     {
         onTouchShip(victim)
@@ -115,7 +112,16 @@ function finishMission(): void
 
 function repairSpaceShip(): void
 {
+   const nbCostGC: number = 5
+  
+    if(currentPlayer.value.credit >= 5 )
+    {
+        finishMission()
 
+        const repairShipPercentage = currentPlayer.value.credit/ nbCostGC
+        currentPlayer.value.remainingLives += repairShipPercentage
+        currentPlayer.value.credit = 0
+    }
 }
 
 function onTouchShip(character: Player | Enemy): void 
@@ -156,6 +162,7 @@ function chooseNewEnemy()
         }
     }
 }
+
 
 function isShipTouch(chancesInPercentage: number)
 {

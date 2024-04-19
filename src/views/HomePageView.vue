@@ -3,6 +3,7 @@ import GameForm from '../components/GameForm.vue'
 import 'vue-loading-overlay/dist/css/index.css'
 import 'vue-toast-notification/dist/theme-sugar.css'
 
+//Initialisation variables
 const gameObjectivesTitle = "Votre objectif"
 const gameObjectives = "survivre à 5 missions en obtenant le plus de crédits galactiques"
 

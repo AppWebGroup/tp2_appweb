@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import Action from '../components/Action.vue';
 import { onBeforeRouteLeave, useRouter, type RouteRecordName } from 'vue-router';
-import { gameService } from '@/services/gameService';
 import ConfirmModal from '../components/ConfirmModal.vue';
 import { ref } from 'vue';
 import 'vue-loading-overlay/dist/css/index.css'
 import GameLogic from '@/components/GameLogic.vue';
 
+
+//Initialisation variables
 const playerName = ref("");
 const shipName = ref("");
 const triggerModal = ref(0)
 const nextView = ref<RouteRecordName | null>()
 const gameStarted = ref(true)
 const router = useRouter()
-
 
 
 onBeforeRouteLeave((to, from, next) => {
