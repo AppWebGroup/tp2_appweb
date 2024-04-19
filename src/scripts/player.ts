@@ -1,7 +1,7 @@
-import type Ship from './ship'
+import type Character from './character';
 
-export default interface Player {
-    name: string;
-    ship : Ship;
 
+export default interface Player extends Omit<Character, 'ship'>{
+    remainingLives?: number,
+    ship: string,
 }  

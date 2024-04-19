@@ -31,48 +31,6 @@ function cancelConfirmed() {
   router.push({ name: nextView.value!})
 }
 
-function startFight()
-{
-  //Vérifier si la partie n'est pas terminée(fonction isGameFinish)
-  //On a besoin d'avoir deux objet un ennemi et un joueur pour accéder à leur propriétés)
-
-  //On vérifie si le vaisseau a été touché
-
-  //Si oui on fait un generate pour un minimum de % entre 3 et 6 % perdus
-  //on diminue sur le remainingLife
-}
-
-
-function isShipTouch(chancesInPercentage: number)
-{
-  const chances: number = chancesInPercentage/10
-  const randomNumber:number = generateRandomNumber();
-  
-  if(randomNumber<= chances)
-  {
-    return true
-  }
-  return false
-}
-
-//je ne pense pas que ce soit la bonne vue pour ca 
-function generateRandomNumber(): number 
-{
-  const maxNumber:number = 10
-  Math.floor(Math.random() * maxNumber) + 1;
-}
-
-
-function stopMission()
-{
-
-}
-
-function repairSpaceShip()
-{
-
-}
-
 playerName.value  = router.currentRoute.value.params.playerName
 shipName.value = router.currentRoute.value.params.shipName
 
