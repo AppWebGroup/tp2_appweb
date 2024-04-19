@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import Loading from 'vue-loading-overlay'
-import {ref, onMounted } from "vue"
-
-import {scoresService} from '../services/scoresService'
+import {ref} from "vue"
 import type Character from '../scripts/character'
 import {experience} from '../scripts/experience'
 import '../css/style.css';
 
-
+//Initialisation
 const props = defineProps<{
     enemy : Character
 }>();
 
 const isLoading = ref(false)
-const remainingLife = ref(100)
 
 
 </script>

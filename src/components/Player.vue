@@ -1,15 +1,7 @@
 <script setup lang="ts">
-import {ref} from "vue"
 import type Character from "@/scripts/character";
 import {experience, valueExperience} from '@/scripts/experience'
 import '../css/style.css';
-
-
-/*
-const props = defineProps<{
-    playerName: string,
-    shipName: string
-}>()*/
 
 const props = defineProps<{
     player: Character

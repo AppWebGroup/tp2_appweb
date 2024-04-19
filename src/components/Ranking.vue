@@ -4,8 +4,10 @@ import { useToast } from 'vue-toast-notification'
 import { onMounted, ref } from 'vue'
 import { scoresService } from '../services/scoresService'
 import type Ranking from '../scripts/ranking'
+import {utility } from '@/scripts/utility'
 
 const rankingList = ref<Ranking[]>();
+const rankingList2 = ref<Ranking[]>();
 const galaticCredits = "CG"
 
 const isLoading = ref(false)
@@ -15,7 +17,8 @@ onMounted(async () => {
   isLoading.value = true
 
   // Cherche la liste de tous les pointages.
-  await scoresService.getRanking().then(input => {rankingList.value = input })
+  await scoresService.getRanking().then(input => {rankingList.value = input.slice().sort((a, b) => b.score - a.score) })
+
 
  .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,
                                   { duration: 6000 }
@@ -24,6 +27,7 @@ onMounted(async () => {
     isLoading.value = false
   )
 })
+
 
 </script>
 

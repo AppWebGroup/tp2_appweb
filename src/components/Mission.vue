@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import {ref } from "vue"
 import '../css/style.css';
 
 const titleMission:string = "Mission en cours"
