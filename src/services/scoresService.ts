@@ -36,8 +36,12 @@ async function getShips () {
   {
     console.log(listCharacter.value?.length)
     console.log(characterToDelete.name)
-     const filteredList = listCharacter.value!.filter(character => characterToDelete.name == character.name)
+    listCharacter.value = listCharacter.value!.filter(character => characterToDelete.name != character.name)
     console.log(listCharacter.value!.length)
+
+    const randomEnemy = getRandomEnemy()
+    console.log(randomEnemy)
+    return randomEnemy
 
   }
   async function createRanking(ranking : Ranking)

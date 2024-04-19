@@ -1,3 +1,4 @@
+import type Character from "@/scripts/character";
 
 function generateRandomNumber(minNumber: number, maxNumber:number ): number
 {
@@ -16,8 +17,14 @@ function getLostLifePercentage(): number
     return lostPercentage
 }
 
+function ok(wtv : Character)
+{
+    console.log(wtv)
+}
+
 export const utility =
 {
     generateRandomNumber,
-    getLostLifePercentage
+    getLostLifePercentage,
+    ok
 }

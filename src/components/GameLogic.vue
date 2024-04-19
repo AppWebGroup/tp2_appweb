@@ -10,7 +10,9 @@ import type Character from '@/scripts/character'
 import type Ship from '@/scripts/ship'
 import {utility } from '@/scripts/utility'
 import {valueExperience} from '@/scripts/experience'
-import  router  from '@/router/routes';
+import router  from '@/router/routes'
+import Ranking from '@/scripts/ranking'
+
 
 
 const props = defineProps<{
@@ -36,7 +38,6 @@ const currentPlayer = ref<Character | undefined>({
 })
 
 
-const listEnemyDisqualified = ref<Character[]>([])
 const levelMission = ref(1)
 
 onBeforeMount(async () => {
@@ -93,9 +94,22 @@ function onFight(attacker:Character, victim: Character)
     }
 }
 
-function stopMission(): void
+function finishMission(): void
 {
-   
+    if(levelMission.value == 5)
+    {
+        //redirection vers la page de pointages
+        //À arranger
+        router.replace({name: 'Score'})
+    }
+    else if(currentEnemy.value.isKilled)
+    {
+        levelMission.value += 1 
+
+        //Affichage du nouvel ennemi
+        //À faire
+        //chooseNewEnemy()
+    }
 }
 
 function repairSpaceShip(): void
@@ -116,13 +130,8 @@ function onTouchShip(character:Character): void
 function onKillEnemy(): void
 {
     currentPlayer.value.credits += currentEnemy.value.credits
-    levelMission.value += 1 
-
-    //Ne marche pas
-    scoresService.getRandomEnemyNotKilled(currentEnemy.value)
-
-    //et empêcher de rejouer le même enemy
-    //À faire
+    useToast().info(`Vous avez gagnez ${currentEnemy.value.credits} GC. Fécilcitations !`)
+    finishMission()
 }
 
 function onKillPlayer(): void
@@ -132,13 +141,27 @@ function onKillPlayer(): void
    
    //Ne marche pas
    //Redirection vers la page d'acceuil
-    router.currentRoute.push.value('/')
+   router.replace({name: 'HomePage'})
+}
+
+function onWinPlayer()
+{
+    const newRanking = ref<Ranking>()
+
+    //Ajouter le id dans character 
+    //newRanking.value.id = 
+    newRanking.value.name = currentPlayer.value.name
+    newRanking.value.score = currentPlayer.value.credits
+    scoresService.createRanking(newRanking)
 }
 
 function chooseNewEnemy()
 {
     //À faire
-    //scoresService.getRandomEnemyNotKilled()
+    //choisir le nouvel enemy à combattre
+    currentEnemy.value = scoresService.getRandomEnemyNotKilled(currentEnemy.value)
+
+    utility.ok(currentEnemy)
 }
 
 function isShipTouch(chancesInPercentage: number)
@@ -160,7 +183,7 @@ function isShipTouch(chancesInPercentage: number)
 <template>
  <div class="container">
       <div class="row">
-        <Action @startFight="startFight" @stopMission="stopMission" @repairSpaceShip="repairSpaceShip"></Action>
+        <Action @startFight="startFight" @finishMission="finishMission" @repairSpaceShip="repairSpaceShip"></Action>
         <Mission :levelMission="levelMission"/>
       </div>
       <div class="row">
