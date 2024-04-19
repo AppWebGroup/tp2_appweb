@@ -114,13 +114,13 @@ function repairSpaceShip(): void
 {
    const nbCostGC: number = 5
   
-    if(currentPlayer.value.credit >= 5 )
+    if(currentPlayer.value!.credit >= 5 )
     {
         finishMission()
 
-        const repairShipPercentage = currentPlayer.value.credit/ nbCostGC
-        currentPlayer.value.remainingLives += repairShipPercentage
-        currentPlayer.value.credit = 0
+        const repairShipPercentage = currentPlayer.value!.credit/ nbCostGC
+        currentPlayer.value!.remainingLives! += repairShipPercentage
+        currentPlayer.value!.credit = 0
     }
 }
 
