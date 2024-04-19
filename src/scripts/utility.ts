@@ -22,16 +22,17 @@ function getLostLifePercentage(): number
 }
 
 //À enlever si la destruction de l'ennemi marche
-/*
-function ok(wtv : Character)
+
+function ok(wtv: number)
 {
     console.log(wtv)
 }
-*/
+
 
 //Fonction de calculs 
 export const utility =
 {
     generateRandomNumber,
-    getLostLifePercentage
+    getLostLifePercentage,
+    ok
 }

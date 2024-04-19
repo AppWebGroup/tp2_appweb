@@ -107,17 +107,14 @@ function finishMission(): void
 function repairSpaceShip(): void
 {
    const nbCostGC: number = 5
-   const lifeToSave = 100 - currentPlayer.value.remainingLife
-   const costToRepair: number = (nbCostGC * lifeToSave)
-
-
-    if(currentPlayer.value.credits > 0 && currentPlayer.value.credits >= costToRepair)
+  
+    if(currentPlayer.value.credit >= 5 )
     {
         finishMission()
-       // const nbCostGC: number = 5
 
-        currentPlayer.value.credits -= costToRepair
-        currentPlayer.value.remainingLife += lifeToSave
+        const repairShipPercentage = currentPlayer.value.credit/ nbCostGC
+        currentPlayer.value.remainingLives += repairShipPercentage
+        currentPlayer.value.credit = 0
     }
 }
 
