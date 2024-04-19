@@ -52,9 +52,15 @@ async function getShips () {
      }
      return listOfRandomPickedCharacter.value
   }
-  async function createRanking(ranking : Ranking)
+
+
+
+  async function createRanking(playerName : string, playerScore: number)
   {
-    const { data } = await axios.post(`${API_URL}/ranking`, ranking)
+    const rankingList = ref<Ranking[]>([])
+    rankingList.value = await getRanking()
+    const ranking = ref<Ranking>({ id: rankingList.value.length + 1, name: playerName, score: playerScore } as Ranking)
+    const { data } = await axios.post(`${API_URL}/ranking`, ranking.value)
     return data
   }
 
@@ -67,20 +73,7 @@ async function getShips () {
     getACertainNumberOfEnemy
   }
 
-  export async function transformCharacterToEnemy(character: Character): Promise<Enemy> {
-    const enemy: Enemy = {
-      ...character,
-      isKilled: false,
-      remainingLives: 3 // Assuming default remaining lives
-    };
-    return enemy;
-  }
-
-  function clearArray<T>(array: T[]) {
-    while (array.length > 0) {
-      array.pop();
-    }
-  }
+  
 
 
 

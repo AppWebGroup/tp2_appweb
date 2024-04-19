@@ -31,12 +31,16 @@ function cancelConfirmed() {
   router.push({ name: nextView.value!})
 }
 
+function GameFinished() : void {
+  gameStarted.value = false;
+}
+
 playerName.value  = router.currentRoute.value.params.playerName
 shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-    <GameLogic :playerName="playerName" :shipName="shipName" :isGameStarted="gameStarted"></GameLogic>
+    <GameLogic :playerName="playerName" :shipName="shipName" :isGameStarted="gameStarted" @game-finished="GameFinished"></GameLogic>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"

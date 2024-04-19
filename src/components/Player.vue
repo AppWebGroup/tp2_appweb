@@ -21,8 +21,15 @@ const props = defineProps<{
                 <div class="row  mt-2">
                     <div class="col-12 text-white">{{ experience[props.player!.experience] + " - " + props.player!.credit + " CG"}}</div>
                     <div class="col-12 text-white text-center m-2">{{ props.player!.ship}}</div>
-                    <div class="col-12 progress bg-primary" style="height: 30px;">
-                        <div class="progress-bar" role="progressbar" :style="{width: props.player!.remainingLives + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ props.player!.remainingLives + " " + "%" }}</div>
+                    <div class="col-12 progress" style="height: 30px; padding: 0;">
+                        <div class="progress-bar" role="progressbar"
+                            :class="{ 'bg-danger': props.player!.remainingLives! < 25 }"
+                            :style="{width: props.player!.remainingLives + '%'}"
+                            aria-valuenow="props.enemy.remainingLives"
+                            aria-valuemin="0"
+                            aria-valuemax="100">
+                            {{ props.player!.remainingLives + '%' }}
+                        </div>
                     </div>
                 </div>
             </div>
