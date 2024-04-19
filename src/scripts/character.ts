@@ -1,11 +1,9 @@
 import type Ship from "./ship";
 
 export default interface Character {
-    name: string;
-    experience: string,
-    experienceChances: number,
-    credits: number,
-    ship: Ship,
-    remainingLife: number,
-    isKilled: boolean
-}  
+    readonly name: string;
+    readonly experience: number,
+    readonly credit: number,
+    readonly ship: Ship
+} 
+

@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import Loading from 'vue-loading-overlay'
-import {ref, onMounted } from "vue"
-
-import {scoresService} from '../services/scoresService'
-import type Character from '../scripts/character'
 import {experience} from '../scripts/experience'
 import '../css/style.css';
+import type Enemy from '@/scripts/enemy'
 
 
 const props = defineProps<{
-    enemy : Character
+    enemy : Enemy | undefined
 }>();
 
-const isLoading = ref(false)
-const remainingLife = ref(100)
 
 
 </script>
@@ -25,10 +19,10 @@ const remainingLife = ref(100)
             </div>
             <div class="card-body">
                 <div class="row mt-2">
-                    <div class="col-12 text-white">{{ experience[props.enemy.experience] + " - " + props.enemy.credits + " CG"}}</div>
-                    <div class="col-12 text-white text-center m-2">{{ enemy.ship.name }}</div>
+                    <div class="col-12 text-white">{{ experience[props.enemy!.experience] + " - " + props.enemy!.credit + " CG"}}</div>
+                    <div class="col-12 text-white text-center m-2">{{ enemy!.ship.name }}</div>
                     <div class="col-12 progress bg-primary" style="height: 30px;">
-                        <div class="progress-bar" role="progressbar" :style="{ width: props.enemy.remainingLife + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ props.enemy.remainingLife + " " + "%" }}</div>
+                        <div class="progress-bar" role="progressbar" :style="{ width: props.enemy.remainingLives + '%'}" aria-valuenow="remainingLife" aria-valuemin="0" aria-valuemax="100">{{ props.enemy.remainingLives + " " + "%" }}</div>
                     </div>
                 </div>
             </div>
@@ -37,5 +31,4 @@ const remainingLife = ref(100)
             <p>Loading enemy...</p>
         </div>
     </div>
-    <Loading :active="isLoading"/>
 </template>

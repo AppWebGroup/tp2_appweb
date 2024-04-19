@@ -6,8 +6,6 @@ import Action from '../components/Action.vue'
 import {ref,  onBeforeMount} from 'vue'
 import { useToast } from 'vue-toast-notification'
 import { scoresService } from '@/services/scoresService'
-import type Character from '@/scripts/character'
-import type Ship from '@/scripts/ship'
 import {utility } from '@/scripts/utility'
 import {valueExperience} from '@/scripts/experience'
 import type Ranking from '@/scripts/ranking'
@@ -19,7 +17,7 @@ const DEFAULT_NUMBER_OF_ENEMY = 5;
 const router = useRouter()
 
 // initialize an enemy list 
-const enemyList = ref<Enemy[]>()
+const enemyList = ref<Enemy[]>([])
 
 const props = defineProps<{
     isGameStarted : boolean,
@@ -33,9 +31,9 @@ const currentEnemy = ref<Enemy>()
 const currentPlayer = ref<Player | undefined>({ 
     name: props.playerName,
     experience: 4,
-    credits: 0,
+    credit: 0,
     ship: props.shipName,
-    remainingLife: 100,
+    remainingLives: 100,
     isKilled :false
 })
 
@@ -48,22 +46,18 @@ onBeforeMount(async () => {
     
     //Get the enemies to battle
     await scoresService.getACertainNumberOfEnemy(DEFAULT_NUMBER_OF_ENEMY).then( characters => {
+        
         for(const character of characters!) {
-             enemyList.value?.push({...character, iskilled:false, remainingLives:100} as Enemy)
-        }}
-    )
+             enemyList.value?.push({...character, isKilled:false, remainingLives:100} as Enemy)
+        }
+        console.error(enemyList.value)
+        }
+        
+    ).then(() => currentEnemy.value = chooseNewEnemy())
     .finally( () =>  
-        { isLoading.value = false
-             }
-        )
+         isLoading.value = false)
     }
 )
-
-if(enemyList) {
-    chooseNewEnemy()
-}
-
-
 
 function startFight(): void
 {
@@ -107,7 +101,7 @@ function finishMission(): void
     else if(currentEnemy.value!.isKilled)
     {
         levelMission.value += 1 
-        chooseNewEnemy()
+        currentEnemy.value = chooseNewEnemy()
     }
 }
 
@@ -118,18 +112,18 @@ function repairSpaceShip(): void
 
 function onTouchShip(character: Player | Enemy): void 
 {
-    character.remainingLife -= utility.getLostLifePercentage()
-    if(character.remainingLife <=0)
+    character.remainingLives! -= utility.getLostLifePercentage()
+    if(character.remainingLives! <=0)
     {
-        character.remainingLife = 0
+        character.remainingLives = 0
         character.isKilled = true
     }
 }
 
 function onKillEnemy(): void
 {
-    currentPlayer.value!.credits += currentEnemy.value!.credits
-    useToast().info(`Vous avez gagnez ${currentEnemy.value!.credits} GC. Fécilcitations !`)
+    currentPlayer.value!.credit += currentEnemy.value!.credit
+    useToast().info(`Vous avez gagnez ${currentEnemy.value!.credit} GC. Fécilcitations !`)
     finishMission()
 }
 
@@ -144,7 +138,7 @@ function onWinPlayer()
 {
     const newRanking = ref<Ranking>()
     newRanking.value!.name = currentPlayer.value!.name
-    newRanking.value!.score = currentPlayer.value!.credits.toString()
+    newRanking.value!.score = currentPlayer.value!.credit.toString()
     scoresService.createRanking(newRanking.value!)
 }
 
@@ -170,11 +164,6 @@ function isShipTouch(chancesInPercentage: number)
   }
   return false
 }
-
-function getARandomEnemy() {
-     
-}
-
 
 </script>
 <template>
