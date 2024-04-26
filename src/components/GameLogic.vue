@@ -99,11 +99,11 @@ function onFight(attacker: Player | Enemy, victim: Player | Enemy)
 
 function finishMission(): void
 {
-    if(levelMission.value == DEFAULT_NUMBER_OF_ENEMY)
+    if(levelMission.value >= DEFAULT_NUMBER_OF_ENEMY)
     {
         onWinPlayer()
         emits("GameFinished")
-        router.push({name: 'Score'})
+        router.push({name: 'Score' });
     }
     levelMission.value += 1 
     currentEnemy.value!.isKilled = true;
@@ -117,7 +117,6 @@ function repairSpaceShip(): void
     if(currentPlayer.value!.credit >= 5 )
     {
         finishMission()
-
         const repairShipPercentage = currentPlayer.value!.credit/ nbCostGC
         currentPlayer.value!.remainingLives! += repairShipPercentage
         currentPlayer.value!.credit = 0

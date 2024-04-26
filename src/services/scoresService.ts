@@ -30,19 +30,6 @@ async function getShips () {
     return enemy.value
   }
 
-  function getRandomEnemyNotKilled(characterToDelete: Character)
-  {
-    console.log(listCharacter.value?.length)
-    console.log(characterToDelete.name)
-    listCharacter.value = listCharacter.value!.filter(character => characterToDelete.name != character.name)
-    console.log(listCharacter.value!.length)
-
-    const randomEnemy = getRandomEnemy()
-    console.log(randomEnemy)
-    return randomEnemy
-
-  }
-
   async function getACertainNumberOfEnemy(numberOfEnemyToGet:  number) : Promise<Character[] | undefined>
   {
      const listOfRandomPickedCharacter= ref<Character[]| undefined>([]);

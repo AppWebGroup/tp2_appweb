@@ -1,19 +1,19 @@
 <script setup lang="ts">
 //import Loading from 'vue-loading-overlay'
 import { useToast } from 'vue-toast-notification'
-import { onMounted, ref } from 'vue'
+import { onBeforeMount, ref } from 'vue'
 import { scoresService } from '../services/scoresService'
 import type Ranking from '../scripts/ranking'
 import {utility } from '@/scripts/utility'
+import { loadRouteLocation } from 'vue-router'
 
 const rankingList = ref<Ranking[]>();
-const rankingList2 = ref<Ranking[]>();
 const galaticCredits = "CG"
 
 const isLoading = ref(false)
 
 //onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
-onMounted(async () => {
+onBeforeMount(async () => {
   isLoading.value = true
 
   // Cherche la liste de tous les pointages.
@@ -27,10 +27,7 @@ onMounted(async () => {
     isLoading.value = false
   )
 })
-
-
 </script>
-
 <template>
     <table class="table">
         <thead class="thead-dark">

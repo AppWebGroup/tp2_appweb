@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Action from '../components/Action.vue';
 import { onBeforeRouteLeave, useRouter, type RouteRecordName } from 'vue-router';
 import ConfirmModal from '../components/ConfirmModal.vue';
 import { ref } from 'vue';
