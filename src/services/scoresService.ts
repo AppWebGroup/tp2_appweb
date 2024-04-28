@@ -49,12 +49,12 @@ async function getShips () {
     const { data } = await axios.post(`${API_URL}/ranking`, ranking.value)
     return data
   }
-
+  
 
   export const scoresService = {
     getShips,
     getRanking,
-    createRanking, 
+    createRanking,
     getRandomEnemy,
     getACertainNumberOfEnemy
   }
