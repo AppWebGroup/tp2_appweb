@@ -5,8 +5,7 @@ import type Ranking from '@/scripts/ranking'
 
 
 describe('RankingTab.vue', () => {
-    it(`Doit afficher le tableau de pointages lorsque l'utilisateur 
-    clique sur score dans la barre de navigation `, async () => {
+    it(`Doit afficher le tableau de pointages `, async () => {
     
       const rankingList : Ranking[] = [
         {
@@ -42,32 +41,17 @@ describe('RankingTab.vue', () => {
 })
 
     describe('Ranking.vue', () => {
-        it(`Doit afficher le tableau de pointages dans la route de scores`, async () => {
-    
-         //À faire
-
-
-    
-         
+        it(`Doit afficher le tableau de pointages est vide`, async () => {
+            const rankingList : Ranking[] = [] 
+            const wrapper = mount(RankingTab, {
+                props : {rankingList}
+        
+                })
+        
+             const rankingExpectList = wrapper.findAll('td').map(td => td.text())
+        
+             expect(rankingExpectList.length).toBe(0)
         })
     })
 
-        
-    describe('Ranking.vue', () => {
-                it(`Doit afficher le tableau de score en fin de partie`, async () => {
-            
-                 //À faire
-                //Le tableau n'est pas vide + présence du nouveau joueur
-                 
-         })
-    })
-
-
-         describe('Ranking.vue', () => {
-            it(`Ne doit pas afficher le tableau de score si le composant n'est pas mount`, async () => {
-        
-             //Jsp si on peut tester ca mais bon
-             
-     })
-})
 
