@@ -18,9 +18,8 @@ onMounted(async () => {
   // Récupération de la liste de tous les vaisseaux spatiaux.
   await gameService.fetchShips().then(input => {listOfShips.value = input })
   .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,{ duration: 6000 })) 
-  .finally( () => isLoading.value = false)
+  .finally( () => { isLoading.value = false , shipName.value = listOfShips.value![0].name; })
 
-  shipName.value = listOfShips.value![0].name;
 })
 
 function handleFormSubmission() {

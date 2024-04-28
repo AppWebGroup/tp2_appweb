@@ -14,12 +14,12 @@ const props = defineProps<{
     <div class=" col-12 col-md-6">
         <div class="card bg-dark mt-4" v-if="props.enemy">
             <div class="bg-primary card-header">
-                <p class="col-12 text-white">{{ props.enemy.name }}</p>
+                <p class="col-12 text-white" name="enemyName">{{ props.enemy.name }}</p>
             </div>
             <div class="card-body">
                 <div class="row mt-2">
-                    <div class="col-12 text-white">{{ experience[props.enemy!.experience] + " - " + props.enemy!.credit + " CG"}}</div>
-                    <div class="col-12 text-white text-center m-2">{{ props.enemy!.ship.name }}</div>
+                    <div class="col-12 text-white" name="enemyExperience">{{ experience[props.enemy!.experience] + " - " + props.enemy!.credit + " CG"}}</div>
+                    <div class="col-12 text-white text-center m-2" name="enemyShip">{{ props.enemy!.ship.name }}</div>
                     <div class="col-12 progress" style="height: 30px; padding: 0;">
                         <div class="progress-bar" role="progressbar"
                             :class="{ 'bg-danger': props.enemy!.remainingLives! < 25 }"
@@ -34,7 +34,7 @@ const props = defineProps<{
             </div>
         </div>
         <div v-else>
-            <p>Loading enemy...</p>
+            <p name="loadingEnemy">Loading enemy...</p>
         </div>
     </div>
 </template>
