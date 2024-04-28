@@ -1,27 +1,20 @@
 <script setup lang="ts">
-import Loading from 'vue-loading-overlay'
 import { useToast } from 'vue-toast-notification'
-import { onMounted, ref } from 'vue'
-import { gameService } from '../services/gameService'
+import Loading from 'vue-loading-overlay'
+import {  onMounted, ref, watch } from 'vue'
 import type Ship from '../scripts/ship'
 import router from '@/router'
 
 
+const props = defineProps<{
+  listOfShips : Ship[]
+}>();
+
 const playerName = ref('');
 const shipName = ref('');
-const listOfShips = ref<Ship[]>();
-const isLoading = ref(false)
 
-//onMounted est utilisée pour exécuter du code spécifiquement après que le composant a été monté dans le DOM (Document Object Model).
-onMounted(async () => {
-  isLoading.value = true
-  // Récupération de la liste de tous les vaisseaux spatiaux.
-  await gameService.fetchShips().then(input => {listOfShips.value = input })
-  .catch(err => useToast().error( `Erreur avec le service: ${(err as Error).message}. Est-ce que vous avez démarré le backend localement ?`,{ duration: 6000 })) 
-  .finally( () => isLoading.value = false)
 
-  shipName.value = listOfShips.value![0].name;
-})
+
 
 function handleFormSubmission() {
   if(playerName.value &&  shipName.value) {
@@ -32,8 +25,15 @@ function handleFormSubmission() {
   }
 }
 
+watch(() => props.listOfShips, (newValue, oldValue) => {
+  if (newValue.length > 0) {
+    shipName.value = newValue[0].name;
+  }
+});
+
 </script>
 <template>
+  <Suspense>
   <div class="row d-flex justify-content-center align-items-center">
     <div class="col-sm-6">
       <div class="card">
@@ -45,7 +45,8 @@ function handleFormSubmission() {
           <div class="form-outline mb-4">
             <label class="form-label card-tex" for="shipSelection">Votre vaisseau:</label>
             <select v-model="shipName" class="form-select" id="shipSelection" aria-label="Ship selection" >
-              <option v-for="ship in listOfShips" :value="ship.name">{{ ship.name }}</option>
+              <option v-if="listOfShips.length > 0" v-for="(ship, index) in listOfShips" :value="ship.name" :key="index">{{ ship.name }}</option>
+              <option v-if="listOfShips.length === 0" selected disabled>Aucun vaisseau disponible</option>
             </select>
           </div>
           <button class="btn btn-primary" @click="handleFormSubmission">Débuter la partie</button>
@@ -53,6 +54,6 @@ function handleFormSubmission() {
       </div>
     </div>
   </div>
-  <Loading :active="isLoading"/>
+  </Suspense>
 </template>
 <style></style>

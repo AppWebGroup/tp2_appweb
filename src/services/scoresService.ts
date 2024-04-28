@@ -30,19 +30,6 @@ async function getShips () {
     return enemy.value
   }
 
-  function getRandomEnemyNotKilled(characterToDelete: Character)
-  {
-    console.log(listCharacter.value?.length)
-    console.log(characterToDelete.name)
-    listCharacter.value = listCharacter.value!.filter(character => characterToDelete.name != character.name)
-    console.log(listCharacter.value!.length)
-
-    const randomEnemy = getRandomEnemy()
-    console.log(randomEnemy)
-    return randomEnemy
-
-  }
-
   async function getACertainNumberOfEnemy(numberOfEnemyToGet:  number) : Promise<Character[] | undefined>
   {
      const listOfRandomPickedCharacter= ref<Character[]| undefined>([]);
@@ -51,17 +38,15 @@ async function getShips () {
      }
      return listOfRandomPickedCharacter.value
   }
-  
-  async function createRanking(ranking : Ranking)
+
+
+
+  async function createRanking(playerName : string, playerScore: number)
   {
-    const listRanking = ref<Ranking[]>([])
-    const newId = ref(0)
-
-     listRanking.value = await getRanking()
-     newId.value = listRanking.value.length + 1 
-     ranking.id = newId.value
-
-    const { data } = await axios.post(`${API_URL}/ranking`, ranking)
+    const rankingList = ref<Ranking[]>([])
+    rankingList.value = await getRanking()
+    const ranking = ref<Ranking>({ id: rankingList.value.length + 1, name: playerName, score: playerScore } as Ranking)
+    const { data } = await axios.post(`${API_URL}/ranking`, ranking.value)
     return data
   }
   
@@ -74,20 +59,7 @@ async function getShips () {
     getACertainNumberOfEnemy
   }
 
-  export async function transformCharacterToEnemy(character: Character): Promise<Enemy> {
-    const enemy: Enemy = {
-      ...character,
-      isKilled: false,
-      remainingLives: 3 // Assuming default remaining lives
-    };
-    return enemy;
-  }
-
-  function clearArray<T>(array: T[]) {
-    while (array.length > 0) {
-      array.pop();
-    }
-  }
+  
 
 
 

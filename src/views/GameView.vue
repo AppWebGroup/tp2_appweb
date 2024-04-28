@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import Action from '../components/Action.vue';
 import { onBeforeRouteLeave, useRouter, type RouteRecordName } from 'vue-router';
 import ConfirmModal from '../components/ConfirmModal.vue';
 import { ref } from 'vue';
@@ -31,13 +30,16 @@ function cancelConfirmed() {
   router.push({ name: nextView.value!})
 }
 
-//Récupération du nom de joueur et de son vaisseau
+function GameFinished() : void {
+  gameStarted.value = false;
+}
+
 playerName.value  = router.currentRoute.value.params.playerName
 shipName.value = router.currentRoute.value.params.shipName
 
 </script>
 <template>
-    <GameLogic :playerName="playerName" :shipName="shipName" :isGameStarted="gameStarted"></GameLogic>
+    <GameLogic :playerName="playerName" :shipName="shipName" :isGameStarted="gameStarted" @game-finished="GameFinished"></GameLogic>
     <ConfirmModal
       @onModalConfirmed="cancelConfirmed"
       :trigger="triggerModal"

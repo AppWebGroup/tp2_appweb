@@ -23,9 +23,9 @@ const emit = defineEmits<{
         </div>
         <div class="card-body">
             <div class="row bg-dark d-flex justify-content-center">
-                <div type="button" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('startFight')">{{fightOption}}</div>
-                <div type="button" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('finishMission')">{{ missionOption }}</div>
-                <div type="button" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('repairSpaceShip')">{{ missionOption +" et "+ restoreShipOption }}</div>
+                <div type="button" name="fightButton" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('startFight')">{{fightOption}}</div>
+                <div type="button" name="finishMissionButton" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('finishMission')">{{ missionOption }}</div>
+                <div type="button" name="repairSpaceShip" class="btn btn-primary col-3 m-2 btn-block justify-content-center" @click="emit('repairSpaceShip')">{{ missionOption +" et "+ restoreShipOption }}</div>
             </div>
         </div>
         </div>

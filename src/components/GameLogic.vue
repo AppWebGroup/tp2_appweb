@@ -12,6 +12,9 @@ import type Ranking from '@/scripts/ranking'
 import type Enemy from '@/scripts/enemy'
 import type Player from '@/scripts/player'
 import { useRouter } from 'vue-router'
+import Loading from 'vue-loading-overlay'
+
+
 
 const DEFAULT_NUMBER_OF_ENEMY = 5;
 const router = useRouter()
@@ -23,6 +26,10 @@ const props = defineProps<{
     isGameStarted : boolean,
     playerName: string,
     shipName: string
+}>()
+
+const emits = defineEmits<{
+    (event: 'GameFinished') : void,
 }>()
 
 const isLoading = ref(true)
@@ -92,29 +99,27 @@ function onFight(attacker: Player | Enemy, victim: Player | Enemy)
 
 function finishMission(): void
 {
-    if(levelMission.value == 5)
+    if(levelMission.value >= DEFAULT_NUMBER_OF_ENEMY)
     {
-        router.push({name: 'Score'})
+        onWinPlayer()
+        emits("GameFinished")
+        router.push({name: 'Score' });
     }
-    else if(currentEnemy.value!.isKilled)
-    {
-        levelMission.value += 1 
-        currentEnemy.value = chooseNewEnemy()
-    }
+    levelMission.value += 1 
+    currentEnemy.value!.isKilled = true;
+    currentEnemy.value = chooseNewEnemy()
 }
-
 
 function repairSpaceShip(): void
 {
    const nbCostGC: number = 5
   
-    if(currentPlayer.value.credit >= 5 )
+    if(currentPlayer.value!.credit >= 5 )
     {
         finishMission()
-
-        const repairShipPercentage = currentPlayer.value.credit/ nbCostGC
-        currentPlayer.value.remainingLives += repairShipPercentage
-        currentPlayer.value.credit = 0
+        const repairShipPercentage = currentPlayer.value!.credit/ nbCostGC
+        currentPlayer.value!.remainingLives! += repairShipPercentage
+        currentPlayer.value!.credit = 0
     }
 }
 
@@ -138,17 +143,14 @@ function onKillEnemy(): void
 function onKillPlayer(): void
 {
    //message à l'utilisateur
+    emits("GameFinished")
     useToast().info(`Vous avez perdus. Vous n'avez pas complétez l'objectif des 5 missions.`)
     router.push({name: 'HomePage'})
 }
 
 function onWinPlayer()
 {
-    const newRanking = ref<Ranking>()
-    newRanking.value!.name = currentPlayer.value!.name
-    newRanking.value!.score = currentPlayer.value!.credit.toString()
-    utility.ok(newRanking)
-    scoresService.createRanking(newRanking.value!)
+    scoresService.createRanking(currentPlayer.value!.name, currentPlayer.value!.credit)
 }
 
 function chooseNewEnemy()
@@ -187,4 +189,5 @@ function isShipTouch(chancesInPercentage: number)
         <EnemyVue :enemy="currentEnemy"></EnemyVue>
       </div>
     </div>
+    <Loading :active="isLoading" />
 </template>

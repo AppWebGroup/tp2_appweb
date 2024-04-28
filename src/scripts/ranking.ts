@@ -1,5 +1,5 @@
 export default interface Ranking {
-    id: number;
-    name: string;
-    score: string;
+     id: number;
+     name: string;
+     score: number;
   }  
