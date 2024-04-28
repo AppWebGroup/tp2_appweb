@@ -147,6 +147,7 @@ function onWinPlayer()
     const newRanking = ref<Ranking>()
     newRanking.value!.name = currentPlayer.value!.name
     newRanking.value!.score = currentPlayer.value!.credit.toString()
+    utility.ok(newRanking)
     scoresService.createRanking(newRanking.value!)
 }
 

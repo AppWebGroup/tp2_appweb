@@ -51,6 +51,7 @@ async function getShips () {
      }
      return listOfRandomPickedCharacter.value
   }
+  
   async function createRanking(ranking : Ranking)
   {
     const listRanking = ref<Ranking[]>([])
@@ -63,12 +64,12 @@ async function getShips () {
     const { data } = await axios.post(`${API_URL}/ranking`, ranking)
     return data
   }
-
+  
 
   export const scoresService = {
     getShips,
     getRanking,
-    createRanking, 
+    createRanking,
     getRandomEnemy,
     getACertainNumberOfEnemy
   }

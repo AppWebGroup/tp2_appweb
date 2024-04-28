@@ -8,7 +8,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <p class="nav-link" id="gameTitle"> Titre du jeu</p>
+          <p class="nav-link" id="gameTitle"></p>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link" id="homePage" to="/">Accueil</RouterLink>

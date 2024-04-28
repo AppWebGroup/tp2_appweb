@@ -1,4 +1,5 @@
 import type Character from "./character";
+import type Ranking from "./ranking";
 
 
 
