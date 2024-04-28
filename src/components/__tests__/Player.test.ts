@@ -27,19 +27,13 @@ import type Character from '@/scripts/player'
     })
   })
 
-  //
-  /*
+  
   describe('Player.vue', () => {
     it(`Doit afficher la description du joueur lorsqu'il est vide `, async () => {
 
 
     const player : Character = {
-        name: undefined,
-        experience: 1,
-        credit: 0,
-        remainingLives: 100,
-        ship: "Millenium Falcon",
-        isKilled: false
+    
     }
       const wrapper = mount(Player)
 
@@ -48,4 +42,4 @@ import type Character from '@/scripts/player'
       expect(wrapper.find('div').text()).toBeUndefined()
 
     })
-  }) */
+  }) 
