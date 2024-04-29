@@ -1,4 +1,4 @@
-import { describe, afterEach, expect, vi, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import type Player from '@/scripts/player'
 import type Enemy from '@/scripts/enemy'
@@ -45,7 +45,7 @@ describe('Logic.vue', () => {
     })
 })
 
-//Tests des fonctions présentes de la logic
+//Tests des fonctions de calculs présentent de la Logic
 describe('Logic.vue', () => {
 
     it("Un nombre aléatoire générer selon une valeur minimum et maximum", async()=> {
@@ -101,7 +101,7 @@ describe('Logic.vue', ()=> {
 })
 
 describe('Logic.vue', ()=> {
-    it(" Doit retourner false si le vaisseau n'a été touché", async()=> {
+    it(" Doit retourner false si le vaisseau n'a pas été touché", async()=> {
         const randomNumber = 7
         const maxChances = 9
         const isShipTouch = utility.isShipReach(randomNumber, maxChances)

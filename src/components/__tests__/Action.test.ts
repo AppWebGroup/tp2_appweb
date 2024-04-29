@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import Action from '../Action.vue'
 
@@ -32,7 +32,7 @@ describe('Action.vue', () => {
         expect(wrapper.emitted()).toHaveProperty('finishMission')
     })
     
-    it('Sur Combattre, doit émettre un événement.', async () => {
+    it('Sur Réparer le vaisseau et terminer la mission, doit émettre un événement.', async () => {
         const wrapper = mount(Action)
     
         await wrapper.find('div[name="repairSpaceShip"]').trigger('click')

@@ -1,10 +1,10 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
-import { flushPromises, mount } from '@vue/test-utils'
+import { describe, expect, it } from 'vitest'
+import { mount } from '@vue/test-utils'
 import GameForm from '../GameForm.vue'
 import type Ship from '@/scripts/ship'
 
 describe('GameForm.vue', ()=> {
-    it('Doit pouvoir afficer la liste des element dans le select', async () => {
+    it('Doit pouvoir afficer la liste des éléments dans le select', async () => {
         const listOfShips : Ship[] = [
             { id : 1 , name: 'Ship1' },
             { id : 1 , name: 'Ship2' },
@@ -40,7 +40,7 @@ describe('GameForm.vue', ()=> {
         expect(wrapper.find('select').element.value).toBe('Ship1');
     }) 
 
-    it('Doit afficher aucun  élement est disponible si la liste est vide ', async () => {
+    it('Doit afficher aucun  élément est disponible si la liste est vide ', async () => {
         const listOfShips : Ship[] = [
           ]
         const wrapper = mount(GameForm, {

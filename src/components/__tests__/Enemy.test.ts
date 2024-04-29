@@ -1,4 +1,4 @@
-import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import EnemyVue from '../Enemy.vue'
 import type Enemy from '@/scripts/enemy'
@@ -31,7 +31,28 @@ describe('Enemy.vue', () => {
         expect(wrapper.find('div[name=enemyExperience]').text()).toContain(`Débutant - ${enemy.credit} CG`)
     })
 
-    it('Doit afficher la barre de progression avec le nombre de point de vie de', () => {
+    it(`Doit afficher la barre de progression avec le nombre de point de vie de l'ennemi`, () => {
+        const enemyShip : Ship = { id: 1, name: 'X-wing'} as Ship
+        const enemy: Enemy = {
+            name: 'DarkVador',
+            experience: 1,
+            credit: 50,
+            ship: enemyShip,
+            remainingLives: 0,
+            isKilled: false
+        } as Enemy
+
+        const wrapper = mount(EnemyVue, {
+            props : {
+                enemy: enemy
+            }
+        })
+
+        expect(wrapper.find('.progress-bar').exists()).toBe(true)
+        expect(wrapper.find('.progress-bar').element.style.width).toBe('0%')
+    })
+
+    it(`Doit afficher la barre de progression avec le nombre de point de vie de l'ennemi(2)`, () => {
         const enemyShip : Ship = { id: 1, name: 'X-wing'} as Ship
         const enemy: Enemy = {
             name: 'DarkVador',
@@ -51,6 +72,7 @@ describe('Enemy.vue', () => {
         expect(wrapper.find('.progress-bar').exists()).toBe(true)
         expect(wrapper.find('.progress-bar').element.style.width).toBe('100%')
     })
+
 
     it(`Affiche loading enemy si l'enemy est pas présent`,() => {
         const wrapper = mount(EnemyVue)
