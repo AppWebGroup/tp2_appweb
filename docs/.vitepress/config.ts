@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Tp2 Appweb",
   description: "Tp2 Andry Ravelomanantsoa et Aboue Abigail Helene Beke",
-  base: "/tp2-appweb/",
+  base: "/tp2_appweb/",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
