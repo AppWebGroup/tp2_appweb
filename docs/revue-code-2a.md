@@ -6,7 +6,7 @@ outline: deep
 
 # TP2 Semaine 2
 
-** l'utilisation des services **
+**l'utilisation des services**
 
 Le score service ne doit faire que des fonctions qui sont liées au service lui-même:
 
@@ -28,12 +28,12 @@ Le score service ne doit faire que des fonctions qui sont liées au service lui-
 Dans ce cas, le getRandomEnemy ne devrait pas être dans scoresService mais plutot gameService
  
 
-** évolution du code **
+**évolution du code**
 
 L'utilisation de Character comme étant le player et l'enemy alors qu'on peut les séprer dans chacune 
 dans une catégorie ce qui facilite les changements lorsqu'on veut changer l'un ou l'autre selon les critères
 
-** bonnes programmation **
+**bonnes programmation**
 
 L'utlisation des constantes doit être utilisé pour les toast: 
 

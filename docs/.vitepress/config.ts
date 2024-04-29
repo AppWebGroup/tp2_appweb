@@ -16,8 +16,12 @@ export default defineConfig({
       {
         text: 'Examples',
         items: [
-          { text: 'Markdown Examples', link: '/markdown-examples' },
-          { text: 'Runtime API Examples', link: '/api-examples' }
+          { text: 'Revue de code semaine 1 - Andry', link: '/revue-code-1.md' },
+          { text: 'Revue de code semaine 2 - Andry', link: '/revue-code-2.md' },
+          { text: 'Revue de code semaine 3 - Andry', link: '/revue-code-3.md' },
+          { text: 'Revue de code semaine 1 - Abigail', link: '/revue-code-1A.md' },
+          { text: 'Revue de code semaine 2 - Andry', link: '/revue-code-2a.md' },
+          { text: 'Revue de code semaine 3 - Andry', link: '/revue-code-3a.md' }
         ]
       }
     ],
