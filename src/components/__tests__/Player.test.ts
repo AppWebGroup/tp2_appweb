@@ -1,8 +1,7 @@
-import { describe, afterEach, expect, vi, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
 import PlayerVue from '../Player.vue'
 import type Player from '@/scripts/player'
-import type Ship from '@/scripts/ship'
 
 
   describe('Player.vue', () => {
@@ -56,6 +55,31 @@ import type Ship from '@/scripts/ship'
     expect(wrapper.find('.progress-bar').exists()).toBe(true)
     expect(wrapper.find('.progress-bar').element.style.width).toBe('100%')
 })
+
+
+it('Doit afficher la barre de progression avec le nombre de point de vie du joueur(2)', () => {
+   
+    const player: Player = {
+
+        name: "wtv",
+        experience: 1,
+        credit: 0,
+        remainingLives: 24,
+        ship: 'Millenium Falcon',
+        isKilled: false
+    } 
+
+    const wrapper = mount(PlayerVue, {
+        props : {
+            player: player
+        }
+    })
+
+
+    expect(wrapper.find('.progress-bar').exists()).toBe(true)
+    expect(wrapper.find('.progress-bar').element.style.width).toBe('24%')
+})
+
 
 it(`N'Affiche pas les composantes si le joueur n'est pas présent`,() => {
     const wrapper = mount(PlayerVue)

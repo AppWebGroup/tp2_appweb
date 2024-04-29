@@ -1,6 +1,6 @@
-import { describe, afterEach, expect, vi, it } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-import RankingTab from '../Ranking.vue'
+import RankingTab from '../RankingTab.vue'
 import type Ranking from '@/scripts/ranking'
 
 
@@ -11,17 +11,17 @@ describe('RankingTab.vue', () => {
         {
             "id": 1,
             "name": "Barbie",
-            "score": "500"
+            "score": 500
           },
           {
             "id": 2,
             "name": "Beyonce",
-            "score": "495"
+            "score": 495
           },
           {
             "id": 3,
             "name": "SZA",
-            "score": "490"
+            "score": 490
           }
       ]
       const wrapper = mount(RankingTab, {
@@ -29,7 +29,7 @@ describe('RankingTab.vue', () => {
 
         })
 
-     const rankingExpectList = wrapper.findAll('td').map(td => td.text())
+        const rankingExpectList = wrapper.findAll('td').map(td => td.text())
 
      expect(rankingExpectList.length).toBe(3)
      expect(rankingExpectList[0]).toBe("Barbie - 500 CG")
@@ -41,7 +41,7 @@ describe('RankingTab.vue', () => {
 })
 
     describe('Ranking.vue', () => {
-        it(`Doit afficher le tableau de pointages est vide`, async () => {
+        it(`Doit afficher le tableau de pointages quand il est vide`, async () => {
             const rankingList : Ranking[] = [] 
             const wrapper = mount(RankingTab, {
                 props : {rankingList}
@@ -49,6 +49,7 @@ describe('RankingTab.vue', () => {
                 })
         
              const rankingExpectList = wrapper.findAll('td').map(td => td.text())
+
              expect(rankingExpectList.length).toBe(0)
             })
     })
