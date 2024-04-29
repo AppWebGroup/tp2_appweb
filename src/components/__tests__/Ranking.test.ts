@@ -49,9 +49,8 @@ describe('RankingTab.vue', () => {
                 })
         
              const rankingExpectList = wrapper.findAll('td').map(td => td.text())
-        
              expect(rankingExpectList.length).toBe(0)
-        })
+            })
     })
 
 
