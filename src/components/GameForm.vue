@@ -14,8 +14,6 @@ const playerName = ref('');
 const shipName = ref('');
 
 
-
-
 function handleFormSubmission() {
   if(playerName.value &&  shipName.value) {
      router.push({name: 'Mission', params: { playerName: playerName.value , shipName: shipName.value}})
