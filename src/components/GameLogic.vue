@@ -25,7 +25,8 @@ const enemyList = ref<Enemy[]>([])
 const props = defineProps<{
     isGameStarted : boolean,
     playerName: string,
-    shipName: string
+    shipName: string,
+    enemyList : Enemy[],
 }>()
 
 const emits = defineEmits<{

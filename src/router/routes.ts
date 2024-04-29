@@ -1,5 +1,4 @@
 import type { RouteRecordRaw } from 'vue-router'
-import PostsView from '../views/HomePageView.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -26,12 +25,6 @@ const routes: Array<RouteRecordRaw> = [
       name: 'Score',
       component: () => import('../views/ScoreView.vue')
     },
-    {
-      path: '/Mission/:playerName/:shipName',
-      name: 'Mission',
-      component: () => import('../views/GameView.vue')
-    },
-
     //À voir si je garde ou nn
     {
       // Route 404

@@ -15,6 +15,7 @@ const gameStarted = ref(true)
 const router = useRouter()
 
 
+
 onBeforeRouteLeave((to, from, next) => {
   if(gameStarted.value) {
     triggerModal.value++

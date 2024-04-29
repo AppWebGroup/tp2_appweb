@@ -1,7 +1,16 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { flushPromises, mount } from '@vue/test-utils'
+import { createRouter, createWebHistory } from 'vue-router'
+import routes from '../../router/routes'
 import GameForm from '../GameForm.vue'
 import type Ship from '@/scripts/ship'
+
+
+
+const router = createRouter({
+    history: createWebHistory(),
+    routes : routes
+})
 
 describe('GameForm.vue', ()=> {
     it('Doit pouvoir afficer la liste des element dans le select', async () => {
@@ -47,7 +56,6 @@ describe('GameForm.vue', ()=> {
             props : { listOfShips : listOfShips }
         })
 
-        console.log(wrapper.html())
         expect(wrapper.find('option[disabled]').exists()).toBe(true);
         expect(wrapper.find('option[disabled]').text()).toBe('Aucun vaisseau disponible');
     }) 

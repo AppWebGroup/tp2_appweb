@@ -13,8 +13,8 @@ const router = createRouter({
 // Vue Test Utils permet de monter le composant avec le contexte du routeur
 describe('NavigationBar.vue', () => {
 
-  it('Doit pouvoir naviguer sur la page des publications.', async () => {
-    router.push('/') // S'assurer de commencer avec une route connue
+  it('Doit pouvoir naviguer sur la page home.', async () => {
+    router.push('/') 
     await router.isReady() // Attendre que le routeur soit prêt
 
     const wrapper = mount(NavigationBar, {
@@ -25,14 +25,13 @@ describe('NavigationBar.vue', () => {
 
     const routerSpy = vi.spyOn(router, 'push')
 
-    // Trouver le lien par son texte et simuler un clic
-    const linkPostsEl = wrapper.find('#publications') // Adapter le sélecteur selon ton besoin
+    const linkPostsEl = wrapper.find('#homePage') 
     await linkPostsEl.trigger('click')
 
     expect(routerSpy).toHaveBeenCalledWith('/')
   })
 
-  it('Doit pouvoir naviguer sur la page à propos.', async () => {
+  it('Doit pouvoir naviguer sur la score .', async () => {
     router.push('/') // Reset la route au début de chaque test
     await router.isReady()
 
@@ -44,9 +43,9 @@ describe('NavigationBar.vue', () => {
 
     const routerSpy = vi.spyOn(router, 'push')
 
-    const linkAboutEl = wrapper.find('#apropos') // Adapter le sélecteur selon ton besoin
+    const linkAboutEl = wrapper.find('#score') // Adapter le sélecteur selon ton besoin
     await linkAboutEl.trigger('click')
 
-    expect(routerSpy).toHaveBeenCalledWith({ name: 'About' })
+    expect(routerSpy).toHaveBeenCalledWith('/score')
   })
 })
