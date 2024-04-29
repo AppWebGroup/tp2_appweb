@@ -1,15 +1,12 @@
 <script setup lang="ts">
-//import Loading from 'vue-loading-overlay'
 import { useToast } from 'vue-toast-notification'
 import { onMounted, ref } from 'vue'
 import { scoresService } from '../services/scoresService'
 import type Ranking from '../scripts/ranking'
-import {utility } from '@/scripts/utility'
-import { loadRouteLocation } from 'vue-router'
+import RankingTab from '../components/RankingTab.vue'
+
 
 const rankingList = ref<Ranking[]>();
-const galaticCredits = "CG"
-
 const isLoading = ref(false)
 
 
@@ -32,22 +29,7 @@ onMounted(async () => {
 <template>
     <Suspense>
     <template #default>
-        <table class="table">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col" class="text-center align-middle">Pointage</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr  
-                v-for="ranking of rankingList" 
-                v-bind:key="ranking.id">
-                    <td>
-                        {{ ranking.name + " - " + ranking.score + " " + galaticCredits }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <RankingTab :rankingList="rankingList" />
     </template>
     <template #fallback>
         <span>Score loading...</span>

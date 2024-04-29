@@ -1,14 +1,7 @@
-import type Character from "./character";
-import type Ranking from "./ranking";
-
-
-
 
 function generateRandomNumber(minNumber: number, maxNumber:number ): number
 {
-    //console.log(maxNumber)
-    //console.log(minNumber)
-   const randomNumber:number = Math.floor(Math.random() * maxNumber - minNumber + 1) + minNumber;
+   const randomNumber:number = Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
    return randomNumber
 }
 
@@ -19,16 +12,29 @@ function getLostLifePercentage(): number
     const minimumPtLost : number = 3
     const maxPtLost:number = 6
     const lostPercentage:number = generateRandomNumber(minimumPtLost, maxPtLost)
-    //console.log(lostPercentage)
     return lostPercentage
 }
 
-//À enlever si la destruction de l'ennemi marche
-
-function ok(wtv: Ranking)
+//Retourne le nombre de pourcentages de vies récupérer selon le nombr de crédits
+function getRepairShipPercentage(nbCredits: number): number
 {
-    console.log(wtv)
+    const nbCostGC: number = 5
+    const repairShipPercentage = nbCredits/ nbCostGC
+
+    return repairShipPercentage
 }
+
+//Vérifie si le vaisseau à été touché selon un nombre aléatoire
+//et les chances qu'il soit touché
+function isShipReach(randomNumber: number, maxChances: number) : boolean
+{
+    if(randomNumber <= maxChances)
+    {
+      return true
+    }
+    return false
+}
+
 
 
 //Fonction de calculs 
@@ -36,5 +42,6 @@ export const utility =
 {
     generateRandomNumber,
     getLostLifePercentage,
-    ok
+    getRepairShipPercentage,
+    isShipReach
 }
